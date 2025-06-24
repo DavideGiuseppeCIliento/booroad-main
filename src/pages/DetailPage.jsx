@@ -1,0 +1,67 @@
+import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import InsertNewParticipant from "../components/InsertNewParticipant";
+import trips from "../../data/array";
+import ParticipantList from "../components/ParticipantList";
+
+export default function DetailPage() {
+  // const initialValue = "";
+
+  const { id } = useParams();
+  const tripId = parseInt(id);
+  const trip = trips.find((t) => t.id === tripId);
+  const participants = trip.participants;
+
+  const [filterText, setFilterText] = useState("");
+  const [participantsTrip, setParticipantsTrip] = useState(participants);
+  console.log(participantsTrip);
+
+  useEffect(() => {
+    if (filterText.trim() === "") {
+      setParticipantsTrip(participants);
+    } else {
+      const filtered = participants.filter(
+        (p) =>
+          p.firstName.toLowerCase().includes(filterText.toLowerCase()) ||
+          p.lastName.toLowerCase().includes(filterText.toLowerCase())
+      );
+      setParticipantsTrip(filtered);
+    }
+  }, [filterText, participants]);
+
+  function handleFilter(e) {
+    const data = e.target.value;
+    setFilterText(data);
+    // filterPartecipant();
+  }
+
+  return (
+    <>
+      <section className="mt-5 mb-5">
+        <div className="container my-4 travel-detail-description">
+          <h1>{trip.destination}</h1>
+          <p>Partenza: {trip.startDate}</p>
+          <p>Ritorno: {trip.endDate}</p>
+        </div>
+      </section>
+
+      <section className="mt-5 mb-5">
+        <div className="container my-3">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Cerca partecipante per nome o cognome..."
+            value={filterText}
+            onChange={handleFilter}
+          />
+        </div>
+
+        <ParticipantList participants={participantsTrip} />
+        <InsertNewParticipant
+          participants={participantsTrip}
+          setParticipants={setParticipantsTrip}
+        />
+      </section>
+    </>
+  );
+}
