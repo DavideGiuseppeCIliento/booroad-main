@@ -8,7 +8,7 @@ export default function Homepage() {
   const [trips, setTrips] = useState(initialTrips);
   return (
     <div className="container my-5">
-      <h1 className="text-center pb-4">Agenzia Viaggi "Booroad"</h1>
+      <h1 className="text-center pb-4">Agenzia Viaggi Booroad</h1>
       <div className="row">
         {trips.map((trip) => {
           return (
@@ -24,9 +24,11 @@ export default function Homepage() {
             </div>
           );
         })}
-        <div className="col form">
-          <h3 className="pb-4">Aggiungi viaggio:</h3>
-          <InsertNewTrip setTrips={setTrips} trips={trips} />
+        <div className="row">
+          <div className="col form">
+            <h3 className="pb-4">Aggiungi viaggio:</h3>
+            <InsertNewTrip setTrips={setTrips} trips={trips} />
+          </div>
         </div>
       </div>
     </div>

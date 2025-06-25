@@ -43,14 +43,17 @@ export default function InsertNewTrip({ setTrips, trips }) {
         placeholder="Destinazione"
         required
       />
+      <label htmlFor="startDate">Partenza </label>
       <input
         type="date"
         name="startDate"
         value={formData.startDate}
         onChange={handleTripChange}
         className="form-control mb-2"
+        placeholder="Partenza"
         required
       />
+      <label htmlFor="endDate">Ritorno </label>
       <input
         type="date"
         name="endDate"
